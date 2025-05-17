@@ -77,11 +77,34 @@ function addEducation() {
   }
 }
 
+function editEducation() {
+  const index = parseInt(prompt("Enter index (starting from 0) of the education to edit:"));
+  if (index >= 0 && index < data.education.length) {
+    const years = prompt("Years:", data.education[index].years);
+    const school = prompt("School:", data.education[index].school);
+    const degree = prompt("Degree:", data.education[index].degree);
+    const gpa = prompt("GPA (optional):", data.education[index].gpa || "");
+    data.education[index] = { years, school, degree, gpa };
+    render();
+  }
+}
+
 function addSkill() {
   const skill = prompt("New skill:");
   if (skill) {
     data.skills.push(skill);
     render();
+  }
+}
+
+function editSkill() {
+  const index = parseInt(prompt("Enter index (starting from 0) of the skill to edit:"));
+  if (index >= 0 && index < data.skills.length) {
+    const newSkill = prompt("New skill name:", data.skills[index]);
+    if (newSkill) {
+      data.skills[index] = newSkill;
+      render();
+    }
   }
 }
 
@@ -96,6 +119,22 @@ function addExperience() {
   }
   if (company && title && responsibilities.length > 0) {
     data.experience.push({ company, title, responsibilities });
+    render();
+  }
+}
+
+function editExperience() {
+  const index = parseInt(prompt("Enter index (starting from 0) of the experience to edit:"));
+  if (index >= 0 && index < data.experience.length) {
+    const company = prompt("Company name:", data.experience[index].company);
+    const title = prompt("Job title:", data.experience[index].title);
+    const responsibilities = [];
+    while (true) {
+      const r = prompt("Responsibility (leave empty to finish):");
+      if (!r) break;
+      responsibilities.push(r);
+    }
+    data.experience[index] = { company, title, responsibilities };
     render();
   }
 }
